@@ -5,23 +5,24 @@ jobs:
     docker:
       - image: python:3.9
     environment:
-      # Set these via CircleCI project settings or contexts for security
-      ORG_ID: "b9291e0d-a11e-41fb-8517-c545388b5953"
-      USAGE_EXPORT_JOB_ID: "e8235eed-f121-4ae3-9c72-2719d6572818"
-      CIRCLECI_API_TOKEN: $CIRCLECI_API_TOKEN
+      # These values should be set in CircleCI project settings or contexts.
+      ORG_ID: "your-org-id"
+      USAGE_START_DATE: "2025-01-01"
+      USAGE_END_DATE: "2025-02-28"
+      # CIRCLECI_API_TOKEN should be set as an environment variable securely.
     steps:
       - checkout
       - run:
-          name: Install dependencies
+          name: Install Python Dependencies
           command: |
             pip install requests
       - run:
-          name: Generate Usage Report
+          name: Trigger and Fetch Usage Report
           command: |
             python generate_usage_report.py
       - store_artifacts:
-          name: Store Usage Report Artifact
-          path: report.json
+          name: Archive Usage Report
+          path: usage_report.json
           destination: usage_report
 
 workflows:
