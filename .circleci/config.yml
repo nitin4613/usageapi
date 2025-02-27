@@ -1,0 +1,30 @@
+version: 2.1
+
+jobs:
+  generate-usage-report:
+    docker:
+      - image: python:3.9
+    environment:
+      # Set these via CircleCI project settings or contexts for security
+      ORG_ID: "b9291e0d-a11e-41fb-8517-c545388b5953"
+      USAGE_EXPORT_JOB_ID: "e8235eed-f121-4ae3-9c72-2719d6572818"
+      CIRCLECI_API_TOKEN: $CIRCLECI_API_TOKEN
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: |
+            pip install requests
+      - run:
+          name: Generate Usage Report
+          command: |
+            python generate_usage_report.py
+      - store_artifacts:
+          name: Store Usage Report Artifact
+          path: report.json
+          destination: usage_report
+
+workflows:
+  build:
+    jobs:
+      - generate-usage-report
