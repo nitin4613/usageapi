@@ -8,7 +8,7 @@ jobs:
       # These values should be set in CircleCI project settings or contexts.
       ORG_ID: "your-org-id"
       USAGE_START_DATE: "2025-01-01"
-      USAGE_END_DATE: "2025-02-28"
+      USAGE_END_DATE: "2025-02-26"
       # CIRCLECI_API_TOKEN should be set as an environment variable securely.
     steps:
       - checkout
